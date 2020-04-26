@@ -113,8 +113,11 @@ export const activatePictureRef = (
       ? getSelectedImage(convertedProps, index)
       : getCurrentSrcData(convertedProps)
 
-    if (!imageData || isString(imageData)) {
+    if (!imageData) {
       return null
+    }
+    if (isString(imageData)) {
+      return imageData
     }
 
     // Prevent adding HTMLPictureElement if it isn't supported (e.g. IE11),
@@ -128,7 +131,6 @@ export const activatePictureRef = (
         pic.width = imageRef.width
         pic.height = imageRef.height
       }
-      // TODO: check why only the 1400 image gets loaded as jpg & single / stacked images don't!
       if (hasArtDirectionArray(convertedProps)) {
         const sources = createArtDirectionSources(convertedProps).reverse()
         sources.forEach(currentSource => pic.appendChild(currentSource))
