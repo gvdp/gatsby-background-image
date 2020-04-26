@@ -15,14 +15,14 @@ const GbiStacked = () => {
         bubbles: file(relativePath: { eq: "bubbles.png" }) {
           childImageSharp {
             fluid(quality: 90, maxWidth: 1280) {
-              ...GatsbyImageSharpFluid_withWebp
+              ...GatsbyImageSharpFluid_withWebp_noBase64
             }
           }
         }
         firefox: file(relativePath: { eq: "firefox.png" }) {
           childImageSharp {
             fluid(quality: 90, maxWidth: 223) {
-              ...GatsbyImageSharpFluid_withWebp
+              ...GatsbyImageSharpFluid_withWebp_noBase64
             }
           }
         }

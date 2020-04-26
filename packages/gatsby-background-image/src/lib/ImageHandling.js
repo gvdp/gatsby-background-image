@@ -30,21 +30,23 @@ export const switchImageSettings = ({ image, bgImage, imageRef, state }) => {
   // which is important for transparent background-image(s).
   let finalImage = false
   if (returnArray) {
-    // Check for tracedSVG first.
-    nextImage = getCurrentFromData({
-      data: image,
-      propName: `tracedSVG`,
-      returnArray,
-    })
-    // Now combine with base64 images.
-    nextImage = combineArray(
-      getCurrentFromData({
+    if (!currentSources) {
+      // Check for tracedSVG first.
+      nextImage = getCurrentFromData({
         data: image,
-        propName: `base64`,
+        propName: `tracedSVG`,
         returnArray,
-      }),
-      nextImage
-    )
+      })
+      // Now combine with base64 images.
+      nextImage = combineArray(
+        getCurrentFromData({
+          data: image,
+          propName: `base64`,
+          returnArray,
+        }),
+        nextImage
+      )
+    }
     // Now add possible `rgba()` or similar CSS string props.
     nextImage = combineArray(
       getCurrentFromData({
@@ -55,8 +57,9 @@ export const switchImageSettings = ({ image, bgImage, imageRef, state }) => {
       }),
       nextImage
     )
+    console.log(state.imgLoaded, state.isVisible, imageRef)
     // Do we have at least one img loaded?
-    if (state.imgLoaded && state.isVisible) {
+    if ((state.imgLoaded || !!currentSources) && state.isVisible) {
       if (currentSources) {
         nextImage = combineArray(
           getCurrentFromData({
