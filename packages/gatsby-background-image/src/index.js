@@ -33,7 +33,6 @@ class BackgroundImage extends React.Component {
 
   constructor(props) {
     super(props)
-
     const convertedProps = convertProps(props)
 
     // Default settings for browser without Intersection Observer available.
@@ -317,6 +316,7 @@ class BackgroundImage extends React.Component {
       style,
       fadeIn: shouldFadeIn,
       ...newImageSettings,
+      ...(this.props.opacity && { afterOpacity: this.props.opacity }),
       originalData: fluid || fixed,
     })
 
@@ -342,7 +342,6 @@ class BackgroundImage extends React.Component {
       ...this.backgroundStyles,
       ...divStyle,
     }
-
     return (
       <Tag
         className={this.state.currentClassNames}

@@ -138,7 +138,7 @@ export const createPseudoStyles = ({
               (!afterOpacity && createStyleImage(nextImage, originalData)) || ``
             }
             ${(afterOpacity && createStyleImage(lastImage, originalData)) || ``}
-            ${finalImage ? `opacity: ${Number(!afterOpacity)};` : ``}
+            ${finalImage ? `opacity: ${Number(!afterOpacity)};` : `opacity: ${afterOpacity}`}
           }
         `
 }
